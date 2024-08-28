@@ -20,7 +20,11 @@ public class WebSecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
-        httpSecurity.sessionManagement(sessionConfig-> sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).authorizeHttpRequests(auth-> auth.requestMatchers("/product","/cart/**","/user","/order/**","/auth/**","/").permitAll().anyRequest().authenticated()).csrf(csrfconfig-> csrfconfig.disable()).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.sessionManagement(sessionConfig-> sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth-> auth.requestMatchers("/product","/cart/**","/user","/order/**","/auth/**","/","/actuator/**","/swagger-ui.html","/swagger-ui/**","/swagger-ui/index.html","/v3/api-docs/**","/swagger-resources/**","/webjars/**","/favicon.ico")
+                        .permitAll().anyRequest().authenticated())
+                .csrf(csrfconfig-> csrfconfig.disable()).
+                addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
 
     }
