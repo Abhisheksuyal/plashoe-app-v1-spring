@@ -2,7 +2,9 @@ package com.abhishek.plashoeApp.PlashoeApp.controllers;
 
 import com.abhishek.plashoeApp.PlashoeApp.advice.ApiResponse;
 import com.abhishek.plashoeApp.PlashoeApp.dto.LoginDTO;
+import com.abhishek.plashoeApp.PlashoeApp.dto.SignupDTO;
 import com.abhishek.plashoeApp.PlashoeApp.services.AuthService;
+import com.abhishek.plashoeApp.PlashoeApp.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +22,7 @@ public class AuthController {
 
     private static final Logger log = LoggerFactory.getLogger(AuthController.class);
     private final AuthService authService;
+    private final UserService userService;
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<?>> login(@RequestBody LoginDTO loginDTO){
@@ -27,6 +30,10 @@ public class AuthController {
         String token = authService.login(loginDTO);
         log.info("login after token line");
         return new ResponseEntity<>( new ApiResponse<>(token), HttpStatus.CREATED);
+    }
+    @PostMapping("/signup")
+    public ResponseEntity<ApiResponse<?>> signup(@RequestBody SignupDTO signupDTO){
+        return ResponseEntity.ok(new ApiResponse<>(userService.signup(signupDTO)));
     }
 
 }

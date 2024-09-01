@@ -19,6 +19,10 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         if(body instanceof ApiResponse<?>)
             return body;
+        String requestURI = String.valueOf(request.getURI());
+        if(requestURI.contains("/v3/api-docs") || requestURI.contains("/swagger-ui/index.html")){
+            return body;
+        }
         return new ApiResponse<>(body);
     }
 }

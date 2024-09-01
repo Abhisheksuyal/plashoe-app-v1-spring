@@ -4,7 +4,7 @@ import com.razorpay.RazorpayException;
 import io.jsonwebtoken.JwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
+//import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -40,11 +40,11 @@ public class GlobalExceptionHandler {
         return buildErrorResponseEntity(apiError);
 
     }
-    @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<ApiResponse<?>> handleBadCredentialsException(BadCredentialsException exception){
-        ApiError apiError = new ApiError(exception.getMessage(), HttpStatus.BAD_REQUEST);
-      return buildErrorResponseEntity(apiError);
-    }
+//    @ExceptionHandler(BadCredentialsException.class)
+//    public ResponseEntity<ApiResponse<?>> handleBadCredentialsException(BadCredentialsException exception){
+//        ApiError apiError = new ApiError(exception.getMessage(), HttpStatus.BAD_REQUEST);
+//      return buildErrorResponseEntity(apiError);
+//    }
 
 
 
