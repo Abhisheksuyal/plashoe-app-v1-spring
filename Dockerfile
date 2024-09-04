@@ -3,8 +3,8 @@ FROM openjdk:21-jdk AS build
 
 # Install dependencies and Maven
 RUN apt-get update && \
-    apt-get install -y wget unzip && \
-    wget https://downloads.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.zip && \
+    apt-get install -y curl unzip && \
+    curl -O https://downloads.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.zip && \
     unzip apache-maven-3.8.6-bin.zip && \
     mv apache-maven-3.8.6 /usr/local/maven && \
     ln -s /usr/local/maven/bin/mvn /usr/bin/mvn && \
