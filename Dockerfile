@@ -1,14 +1,5 @@
-# Use OpenJDK 21 base image for the build stage
-FROM openjdk:21-jdk AS build
-
-# Install Maven by downloading it directly
-RUN apt-get update && \
-    apt-get install -y wget tar && \
-    wget https://downloads.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz && \
-    tar -xzf apache-maven-3.8.6-bin.tar.gz -C /opt && \
-    ln -s /opt/apache-maven-3.8.6/bin/mvn /usr/bin/mvn && \
-    apt-get clean && \
-    rm apache-maven-3.8.6-bin.tar.gz
+# Use the official Maven image with OpenJDK 21
+FROM maven:3.8.6-openjdk-21 AS build
 
 # Set the working directory
 WORKDIR /app
@@ -20,7 +11,7 @@ COPY src ./src
 # Package the application
 RUN mvn clean package
 
-# Use a smaller OpenJDK image to run the application
+# Use the official OpenJDK 21 image for running the application
 FROM openjdk:21-jdk-slim
 
 # Set the working directory
